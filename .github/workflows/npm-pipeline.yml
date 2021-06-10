@@ -50,13 +50,29 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: kubectl - Google Cloud GKE cluster.
-        uses: ameydev/gke-kubectl-action@master
-        env:
-          PROJECT_ID: ${{ secrets.PROJECT_ID }}
-          APPLICATION_CREDENTIALS: ${{ secrets.GKE_SA_KEY_DEC }}
-          CLUSTER_NAME: ${{ secrets.CLUSTER_NAME }}
-          ZONE_NAME: ${{ secrets.CLUSTER_ZONE }}
+      - name: Checkout
+        uses: actions/checkout@v2
+
+        # Setup gcloud CLI
+      - uses: google-github-actions/setup-gcloud@v0.2.0
         with:
-          args: apply -f deployment.yml -n staging
+          service_account_key: ${{ secrets.GKE_SA_KEY }}
+          project_id: ${{ secrets.PROJECT_ID }}
+
+        # Configure docker to use the gcloud command-line tool as a credential helper
+      - run: |-
+          gcloud --quiet auth configure-docker
+
+        # Get the GKE credentials so we can deploy to the cluster
+      - uses: google-github-actions/get-gke-credentials@v0.2.1
+        with:
+          cluster_name: ${{ env.GKE_CLUSTER }}
+          location: ${{ env.GKE_ZONE }}
+          credentials: ${{ secrets.GKE_SA_KEY }}
+            # Deploy the Docker image to the GKE cluster
+      - name: Deploy
+      run: |-
+        ./kustomize edit set image ${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:TAG=latest
+        ./kustomize build . | kubectl apply -f -
+        kubectl rollout status deployment/staging
+        kubectl get services -o wide

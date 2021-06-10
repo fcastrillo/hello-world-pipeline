@@ -45,7 +45,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:${GITHUB_SHA}
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -71,10 +71,13 @@ jobs:
           credentials: ${{ secrets.GKE_SA_KEY }}
             # Deploy the Docker image to the GKE cluster
 
-      - name: Deploy
-        run: |-
-          gcloud container clusters get-credentials ${{ secrets.CLUSTER_NAME }} --zone ${{ secrets.CLUSTER_ZONE }} --project ${{ secrets.PROJECT_ID }}
-          image ${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:TAG=${GITHUB_SHA}
-          kubectl apply -f -
-          kubectl rollout status deployment/staging
-          kubectl get services -o wide
+      - uses: actions/checkout@master
+      - name: kubectl - Google Cloud GKE cluster.
+        uses: ameydev/gke-kubectl-action@master
+        env:
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
+          APPLICATION_CREDENTIALS: ${{ secrets.GKE_SA_KEY }}
+          CLUSTER_NAME: ${{ secrets.CLUSTER_NAME }}
+          ZONE_NAME: ${{ secrets.CLUSTER_ZONE }}
+        with:
+          args: apply -f packaging/k8s/manifests/ -n staging

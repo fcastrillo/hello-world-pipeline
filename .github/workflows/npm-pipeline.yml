@@ -31,7 +31,7 @@ jobs:
         uses: ameydev/gke-kubectl-action@master
         env:
           PROJECT_ID: ${{ secrets.PROJECT_ID }}
-          APPLICATION_CREDENTIALS: ${{ secrets.GKE_SA_KEY }}
+          APPLICATION_CREDENTIALS: ${{ secrets.GKE_SA_KEY_DEC }}
           CLUSTER_NAME: ${{ secrets.CLUSTER_NAME }}
           ZONE_NAME: ${{ secrets.CLUSTER_ZONE }}
         with:

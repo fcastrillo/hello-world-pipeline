@@ -78,6 +78,7 @@ jobs:
 
       - name: Deploy
         run: |-
+          gcloud container clusters get-credentials ${{ secrets.CLUSTER_NAME }} --zone ${{ secrets.CLUSTER_ZONE }} --project ${{ secrets.PROJECT_ID }}
           ./kustomize edit set image ${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:TAG=latest
           ./kustomize build . | kubectl apply -f -
           kubectl rollout status deployment/staging

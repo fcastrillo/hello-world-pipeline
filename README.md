@@ -1,10 +1,7 @@
+## Hello World with pipeline
 
-vx
-B
-C
-C
- c
-C
 
+This is simple hello world code for deployment environment staging and production.
+Using actions in GitHub for the deploy
 
 

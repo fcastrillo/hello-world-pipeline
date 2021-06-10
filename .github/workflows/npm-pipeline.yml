@@ -69,7 +69,6 @@ jobs:
           cluster_name: ${{ secrets.CLUSTER_NAME }}
           location: ${{ secrets.CLUSTER_ZONE }}
           credentials: ${{ secrets.GKE_SA_KEY }}
-            # Deploy the Docker image to the GKE cluster
 
       - name: Deploy
       - uses: google-github-actions/deploy-cloudrun@v0.6.0
@@ -77,3 +76,7 @@ jobs:
           image: ${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:TAG=latest
           credentials: ${{ secrets.GKE_SA_KEY }}
           project_id: ${{ secrets.PROJECT_ID }}
+        run:
+          kubectl apply -f -
+          kubectl rollout status deployment/staging
+          kubectl get services -o wide

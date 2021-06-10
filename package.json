@@ -1,0 +1,26 @@
+{
+  "name": "hello-world",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./test/* --reporter list --exit"
+  },
+  "author": "Daniel Osnaya",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Danosnaya/hello-world-pipeline.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Danosnaya/hello-world-pipeline/issues"
+  },
+  "homepage": "https://github.com/Danosnaya/hello-world-pipeline#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "mocha": "^9.0.0",
+    "supertest": "^6.1.3"
+  }
+}

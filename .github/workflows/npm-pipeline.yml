@@ -58,9 +58,5 @@ jobs:
           service_account_email: ${{ secrets.GKE_EMAIL }}
           project_id: ${{ secrets.PROJECT_ID }}
 
-        # Configure docker to use the gcloud command-line tool as a credential helper
-      - name: Configure Docker
-        run: gcloud auth configure-docker --quiet
-
       - name: Deploy Docker image
         run: gcloud run deploy ${{ secrets.PROJECT_ID }} --image $IMAGE_NAME --region us-central1 --platform managed

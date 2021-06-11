@@ -34,10 +34,6 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@v1
-
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
@@ -61,14 +57,20 @@ jobs:
       - name: Configure Docker
         run: gcloud auth configure-docker --quiet
 
-      - name: Build Docker image
-        run: docker build -t helloworld .
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Test Docker image
-        run: docker run helloworld sh -c "go test -v"
-
-      - name: Push Docker image
-        run: docker push helloworld
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:latest
 
       - name: Deploy Docker image
-        run: gcloud run deploy ${{ secrets.PROJECT_ID }} --image helloworld --region us-central1 --platform managed
+        run: gcloud run deploy ${{ secrets.PROJECT_ID }} --image ${{ secrets.DOCKER_HUB_USERNAME }}/helloworld --region us-central1 --platform managed

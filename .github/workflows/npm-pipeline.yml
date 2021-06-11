@@ -50,29 +50,26 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
         # Setup gcloud CLI
       - uses: google-github-actions/setup-gcloud@v0.2.0
         with:
-          service_account_key: ${{ secrets.GKE_SA_KEY }}
+          service_account_key: ${{ secrets.GKE_SA_KEY_DEC }}
+          service_account_email: ${{ secrets.GKE_EMAIL }}
           project_id: ${{ secrets.PROJECT_ID }}
 
         # Configure docker to use the gcloud command-line tool as a credential helper
-      - run: |-
-          gcloud --quiet auth configure-docker
+      - name: Configure Docker
+        run: gcloud auth configure-docker --quiet
 
-        # Get the GKE credentials so we can deploy to the cluster
+      - name: Build Docker image
+      run: docker build . -t helloworld
 
+      - name: Test Docker image
+      run: docker run helloworld sh -c "go test -v"
 
-      - name: Deploy
-      - uses: google-github-actions/deploy-cloudrun@v0.6.0
-        with:
-          image: ${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:TAG=latest
-          credentials: ${{ secrets.GKE_SA_KEY }}
-          project_id: ${{ secrets.PROJECT_ID }}
-      -  run:
-          kubectl apply -f -
-          kubectl rollout status deployment/staging
-          kubectl get services -o wide
+      - name: Push Docker image
+      run: docker push helloworld
+
+      - name: Deploy Docker image
+      run: gcloud run deploy ${{ secrets.PROJECT_ID }} --image helloworld --region us-central1 --platform managed
+

@@ -45,7 +45,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:latest
+      IMAGE_NAME: docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:${{ github.sha }}
     steps:
       - name: Check Out
         uses: actions/checkout@v2

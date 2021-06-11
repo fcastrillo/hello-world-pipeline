@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
       - name: staging-helloworld
-        image: {{image}}
+        image: us-docker.pkg.dev/${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:latest

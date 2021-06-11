@@ -50,7 +50,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: us-docker.pkg.dev/${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:latest
+      IMAGE_NAME: gcr.io/${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:latest
     steps:
       - name: Check Out
         uses: actions/checkout@v2

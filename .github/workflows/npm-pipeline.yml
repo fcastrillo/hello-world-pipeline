@@ -49,7 +49,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: ${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:latest
+      IMAGE_NAME: docker.pkg.dev/${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:latest
     steps:
         # Setup gcloud CLI
       - uses: google-github-actions/setup-gcloud@v0.2.0

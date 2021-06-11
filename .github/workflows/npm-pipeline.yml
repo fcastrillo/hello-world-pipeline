@@ -66,11 +66,12 @@ jobs:
       - name: Configure Docker
         run: gcloud auth configure-docker --quiet
 
-      - name: Deploy Docker image
-        run: gcloud run deploy ${{ secrets.PROJECT_ID }} --image $IMAGE_NAME --region us-central1 --platform managed --project ${{ secrets.PROJECT_ID }}
-      #  run: |-
+      - run: |-
       #        gcloud auth activate-service-account --key-file ${{ secrets.GKE_SA_KEY_DEC }}
       #        gcloud config set project  ${{ secrets.PROJECT_ID }}
-      #        gcloud container clusters create cluster-for-simple-app --num-nodes=3
-      #        gcloud container clusters get-credentials cluster-for-simple-app
+             gcloud container clusters create cluster-for-simple-app --num-nodes=3
+             gcloud container clusters get-credentials cluster-for-simple-app
       #        kubectl apply -f deployment.yml
+      - name: Deploy Docker image
+        run: gcloud run deploy ${{ secrets.PROJECT_ID }} --image $IMAGE_NAME --region us-central1 --platform managed --project ${{ secrets.PROJECT_ID }}
+

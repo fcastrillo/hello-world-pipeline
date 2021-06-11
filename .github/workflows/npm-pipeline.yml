@@ -69,7 +69,18 @@ jobs:
       - name: Deploy Docker image
       # run: sudo gcloud run deploy ${{ secrets.PROJECT_ID }} --image $IMAGE_NAME --region us-central1 --platform managed
         run: |-
-              gcloud auth activate-service-account --key-file ${{ secrets.GKE_SA_KEY_DEC }}
+              gcloud auth activate-service-account --key-file {
+                                                        "type": "service_account",
+                                                        "project_id": "heroic-mechanic-316419",
+                                                        "private_key_id": "77502b6a3785c9b1df2d7fa4f3ff759ae86438f9",
+                                                        "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCqyz6cMPAbN10Y\nGco9W4FJG+w+ks9fdxcfSy+xAYy2TnioYkbbXXPnljN7niZn304aKhZh8i7xKAOG\n0rFVlU8Vu2DIenRBzIWrzuZ5YplCISu4CA4Ya1wnf3voL2KrdvkIhrMF5X5K0LXW\nihm7FJhU6poV30ASxO30sC3RslDsJFYi1bDm7KwUjI8o2xzsXxwtSq6OaBvEiBY4\nqRBbGSWm0m6XQM+sh/4bV78EIe6Q2+Lmd/7qI7uMrST7BoeFx/tOuXs8qyGGGzYA\nGG3GTsExTzhKjq+04N9gu1ftFr5ErUGFSDtPfYHTwxwrrRNslxugoq/kCQGSQEXm\ngbG8XEx5AgMBAAECggEAVAEHWHdRgXFnnnUA3dDl8/mB5vz6di/y9Xdbi6oBdaF/\nAwLjav26BkwAImsU5L4WghP1UlN19zMBGQ0EH94COeQhpDlmeP6JOInZHhb63mXG\nRQvhMu2LM/omDXtRApjPv/vQjbPkvBOPfGgMY9GrYwjIpL1bnF+z0kfdIWidGKew\nIDnrsH3u0aPiIrcitlllkD7DOdRFtqB3UJL5QEwlR08+7qphnD69kWvy1vFwBXH9\nhOs2tDaFURgPdO0u+ZZ99pdLkbwvTgxvZByvRWQesgZmPFVih7z73GZWZHyQNnTX\nFZE4GeMYub2U6WmjXs/Y0LVx/i/MATOcU2bkeoCACQKBgQDkWY+UkGGcI4FAvs6P\nMXJHHtYWYZ6rP26fycO8hnBwVJcHV12aUMHp1C3R8XOgL4ObjeU3HsaYUsg11bZR\nRizrrFkf5HifhmRgUHpvB3KfhOWXdskC+cfmdaY0xvRJ+4mRAORh6hgDuiBHR7+n\nmA9349ZrwI0QI0oVflPMLxaudwKBgQC/eY1uCpLh8gHrtQ7w1WcTNnrrn74Fzhmn\nWODlsqgPd2Vl9rNAvgM3tqwXlkKveKFmeJryny5dB9FD/Uv80nzmtXmD+60C/WGf\nT62ZEop0wsCjTJ6X9jSItCungKYoVkBIupVUfLRVy9GSlVBbAXCQNjpV7nMcM2Jo\n1Y/KMFPojwKBgDVZEylDPfqrdNP6f+mGRMuG0b9y2Q3rCN491gPiaLxlls85Qv39\nZgBJ+NZ2kWvYDeg2k1l4UC9gD7Q8FJcSTQZWQpAn4WJrlGHIC4KK++V2t+jV8IpI\nbsJRtB3aaVIreO0uhyy08x1Ty5y7j3QJG3wH950+4/XkOLeixtMKIUNrAoGBAJRM\niczL5b2YGgK8ZgkDz+SikovCWoPWgCoL/YwKVn48JE3XyDgBsy5IjntqRtXvIVrj\nWGdIALnPHzaAjYUQZequbaJaoEKrixu/s53WLWSHnnocEs1xxHiIyzLdwlOFkh6C\nXLxmJao5xWS5vtXthIg9Z+s8Vu1love9SLP5wFNjAoGBAOAkasEK2B1IO1xKwEf/\ntDQs8RIazqQZdyGyVPEVCPeRUAn01T9roMis55lavEWbFMQGF5ra6PU20Uk8CqhQ\nVXLaaR8Tced0wkPClPRWHRrWD1MHQ7stRuBPsSjgMnIS60720LCvNpKTm9NeZUuA\n+AuIelPbFVmmWOtd1AOEvvIa\n-----END PRIVATE KEY-----\n",
+                                                        "client_email": "1045803236048-compute@developer.gserviceaccount.com",
+                                                        "client_id": "112388431652679338453",
+                                                        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+                                                        "token_uri": "https://oauth2.googleapis.com/token",
+                                                        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+                                                        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/1045803236048-compute%40developer.gserviceaccount.com"
+                                                      }
               gcloud config set project  ${{ secrets.PROJECT_ID }}
               gcloud container clusters create cluster-for-simple-app --num-nodes=3
               gcloud container clusters get-credentials cluster-for-simple-app

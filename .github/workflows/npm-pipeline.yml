@@ -42,9 +42,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: |-
-            docker.pkg.github.com/${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:${{ github.sha }}
-            docker.pkg.github.com/${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:${{ github.ref }}
+          tags: docker.pkg.github.com/${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:${{ github.sha }}
 #  deploy:
 #    runs-on: ubuntu-latest
 #    env:

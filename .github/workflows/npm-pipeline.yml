@@ -62,7 +62,7 @@ jobs:
         run: gcloud auth configure-docker --quiet
 
       - name: Build Docker image
-      run: docker build . -t helloworld
+      run: docker build helloworld
 
       - name: Test Docker image
       run: docker run helloworld sh -c "go test -v"

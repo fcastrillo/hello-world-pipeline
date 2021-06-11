@@ -42,26 +42,26 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:${{ github.sha }}
-#  deploy:
-#    runs-on: ubuntu-latest
-#    env:
-#      IMAGE_NAME: us-docker.pkg.dev/${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:latest
-#    steps:
-#      - name: Check Out
-#        uses: actions/checkout@v2
-#
-#        # Setup gcloud CLI
-#      - uses: google-github-actions/setup-gcloud@v0.2.0
-#        with:
-#          service_account_key: ${{ secrets.GKE_SA_KEY_DEC }}
-#          service_account_email: ${{ secrets.GKE_EMAIL }}
-#          project_id: ${{ secrets.PROJECT_ID }}
-#
-#      - name: Create cluster
-#        run: gcloud run deploy ${{ secrets.PROJECT_ID }} --image $IMAGE_NAME --region us-central1 --platform managed --project ${{ secrets.PROJECT_ID }}
-#      #  run: |-
-#      #    gcloud auth activate-service-account --key-file ${{ secrets.GKE_SA_KEY_DEC }}
-#      #    gcloud config set project  ${{ secrets.PROJECT_ID }}
-#      #    gcloud container clusters create cluster-for-simple-app --num-nodes=3
-#      #    gcloud container clusters get-credentials cluster-for-simple-app
-#      #        kubectl apply -f deployment.yml
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:latest
+    steps:
+      - name: Check Out
+        uses: actions/checkout@v2
+
+        # Setup gcloud CLI
+      - uses: google-github-actions/setup-gcloud@v0.2.0
+        with:
+          service_account_key: ${{ secrets.GKE_SA_KEY_DEC }}
+          service_account_email: ${{ secrets.GKE_EMAIL }}
+          project_id: ${{ secrets.PROJECT_ID }}
+
+      - name: Create cluster
+        run: gcloud run deploy ${{ secrets.PROJECT_ID }} --image $IMAGE_NAME --region us-central1 --platform managed --project ${{ secrets.PROJECT_ID }}
+      #  run: |-
+      #    gcloud auth activate-service-account --key-file ${{ secrets.GKE_SA_KEY_DEC }}
+      #    gcloud config set project  ${{ secrets.PROJECT_ID }}
+      #    gcloud container clusters create cluster-for-simple-app --num-nodes=3
+      #    gcloud container clusters get-credentials cluster-for-simple-app
+      #        kubectl apply -f deployment.yml

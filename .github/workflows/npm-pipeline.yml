@@ -50,7 +50,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: ${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:latest
+      IMAGE_NAME: us-docker.pkg.dev/${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:latest
     steps:
       - name: Check Out
         uses: actions/checkout@v2
@@ -67,4 +67,4 @@ jobs:
         run: gcloud auth configure-docker --quiet
 
       - name: Deploy Docker image
-        run: gcloud run deploy ${{ secrets.PROJECT_ID }} --image $IMAGE_NAME --region us-central1 --platform managed
+        run: sudo gcloud run deploy ${{ secrets.PROJECT_ID }} --image $IMAGE_NAME --region us-central1 --platform managed

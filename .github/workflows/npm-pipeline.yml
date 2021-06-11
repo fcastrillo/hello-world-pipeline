@@ -62,14 +62,13 @@ jobs:
         run: gcloud auth configure-docker --quiet
 
       - name: Build Docker image
-      run: docker build helloworld
+        run: docker build . -t helloworld
 
       - name: Test Docker image
-      run: docker run helloworld sh -c "go test -v"
+        run: docker run helloworld sh -c "go test -v"
 
       - name: Push Docker image
-      run: docker push helloworld
+        run: docker push helloworld
 
       - name: Deploy Docker image
-      run: gcloud run deploy ${{ secrets.PROJECT_ID }} --image helloworld --region us-central1 --platform managed
-
+        run: gcloud run deploy ${{ secrets.PROJECT_ID }} --image helloworld --region us-central1 --platform managed

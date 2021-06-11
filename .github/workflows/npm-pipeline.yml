@@ -60,7 +60,7 @@ jobs:
         run: gcloud auth configure-docker --quiet
 
       - name: Build Docker image
-        run: docker build $IMAGE_NAME
+        run: docker build --tag $IMAGE_NAME
 
       - name: Push Docker image
         run: docker push $IMAGE_NAME

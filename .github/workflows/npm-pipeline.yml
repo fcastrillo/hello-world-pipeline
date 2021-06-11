@@ -71,7 +71,7 @@ jobs:
       # Push the Docker image to Google Container Registry
       - name: Publish
         run: |-
-          docker push "${{ secrets.DOCKER_HUB_USERNAME }}/static-site:${{ github.sha }} "
+          docker push "danielosnaya/static-site:${{ github.sha }} "
 
 #      # Set up kustomize
 #      - name: Set up Kustomize

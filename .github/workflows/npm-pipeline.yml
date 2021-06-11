@@ -60,10 +60,7 @@ jobs:
         run: gcloud auth configure-docker --quiet
 
       - name: Build Docker image
-        run: docker build . -t $IMAGE_NAME
-
-      - name: Test Docker image
-        run: docker run $IMAGE_NAME sh -c "go test -v"
+        run: docker build --tag $IMAGE_NAME .
 
       - name: Push Docker image
         run: docker push $IMAGE_NAME

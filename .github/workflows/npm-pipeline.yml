@@ -66,7 +66,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: $IMAGE_NAME
+          tags: helloworld
 
       - name: Deploy Docker image
         run: gcloud run deploy ${{ secrets.GCP_PROJECT_ID }} --image $IMAGE_NAME --region us-central1 --platform managed

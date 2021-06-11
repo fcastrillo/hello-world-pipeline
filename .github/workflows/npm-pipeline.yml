@@ -66,6 +66,7 @@ jobs:
       - name: Configure Docker
         run: gcloud auth configure-docker --quiet
 
+      - name: Create Cluster
       - run: |-
       #        gcloud auth activate-service-account --key-file ${{ secrets.GKE_SA_KEY_DEC }}
       #        gcloud config set project  ${{ secrets.PROJECT_ID }}

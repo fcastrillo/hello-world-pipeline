@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
       - name: staging-helloworld
-        image: us-docker.pkg.dev/${{ secrets.DOCKER_HUB_USERNAME }}/helloworld:latest
+        image: gcr.io/${{ secrets.PROJECT_ID }}/static-site:TAG=gcr.io/${{ secrets.PROJECT_ID }}/static-site:${{ github.sha }}

@@ -4,5 +4,4 @@ resources:
   - deployment.yml
 configMapGenerator:
   - name: staging-helloworld-map
-    files:
-      - env.startup.txt
+

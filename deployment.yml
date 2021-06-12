@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: staging-helloworld
+  name: staging
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: staging-helloworld
+      app: staging
   template:
     metadata:
       labels:
-        app: staging-helloworld
+        app: staging
     spec:
       containers:
-      - name: staging-helloworld
+      - name: staging
         image: gcr.io/${{ secrets.PROJECT_ID }}/static-site:TAG=gcr.io/${{ secrets.PROJECT_ID }}/static-site:${{ github.sha }}

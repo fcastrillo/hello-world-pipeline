@@ -79,7 +79,7 @@ jobs:
         run: |-
           ./kustomize edit set image gcr.io/${{ secrets.PROJECT_ID }}/static-site:TAG=gcr.io/${{ secrets.PROJECT_ID }}/static-site:${{ github.sha }}
           ./kustomize build . | kubectl apply -f -
-          kubectl rollout status deployment/staging-helloworld
+          kubectl rollout status deployment/staging
           kubectl get services -o wide
 
 #  build:

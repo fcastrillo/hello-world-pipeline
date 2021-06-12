@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
       - name: staging
-        image: gcr.io/${{ secrets.PROJECT_ID }}/static-site:TAG=gcr.io/${{ secrets.PROJECT_ID }}/static-site:${{ github.sha }}
+        image: gcr.io/${{ secrets.PROJECT_ID }}/static-site:${{ github.sha }}

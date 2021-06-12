@@ -128,7 +128,7 @@ jobs:
           project_id: ${{ secrets.PROJECT_ID }}
 
       - name: Create cluster
-        run: gcloud run deploy ${{ secrets.PROJECT_ID }} --image $IMAGE_NAME  --platform managed --region us-central1
+        run: gcloud run deploy helloworld --image $IMAGE_NAME  --platform managed --region us-central1
       #  run: |-
       #    gcloud auth activate-service-account --key-file ${{ secrets.GKE_SA_KEY_DEC }}
       #    gcloud config set project  ${{ secrets.PROJECT_ID }}

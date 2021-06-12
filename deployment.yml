@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: staging
-        image: gcr.io/heroic-mechanic-316419/hello
+        image: { image }
         ports:
           - containerPort: 3000
 ---

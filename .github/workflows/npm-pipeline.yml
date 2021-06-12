@@ -133,4 +133,5 @@ jobs:
       #          gcloud container clusters create cluster-for-simple-app --zone=us-east1-c --project=${{ secrets.PROJECT_ID }}
         run: |-
           gcloud container clusters get-credentials cluster-for-simple-app --zone=us-east1-c
+          sed -i "s|{image}|gcr.io/heroic-mechanic-316419/hello:TAG=${{ github.sha  }}|g" deployment.yml
           kubectl apply -f deployment.yml

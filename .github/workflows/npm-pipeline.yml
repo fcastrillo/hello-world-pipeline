@@ -131,6 +131,6 @@ jobs:
       - name: Create cluster
       #  run: gcloud run deploy ${{ secrets.PROJECT_ID }} --image $IMAGE_NAME --port $PORT --platform managed --region us-central1
         run: |-
-          gcloud container clusters create cluster-for-simple-app --zone=us-east1-c --project=${{ secrets.PROJECT_ID }}
+#          gcloud container clusters create cluster-for-simple-app --zone=us-east1-c --project=${{ secrets.PROJECT_ID }}
           gcloud container clusters get-credentials cluster-for-simple-app --zone=us-east1-c
           kubectl apply -f deployment.yml

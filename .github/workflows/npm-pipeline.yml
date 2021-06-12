@@ -78,7 +78,7 @@ jobs:
       - name: Deploy
         run: |-
           ./kustomize edit set image gcr.io/${{ secrets.PROJECT_ID }}/static-site:TAG=gcr.io/${{ secrets.PROJECT_ID }}/static-site:${{ github.sha }}
-          ./kustomize build deployment.yml | kubectl apply -f -
+          ./kustomize build . | kubectl apply -f -
           kubectl rollout status deployment/gke-test
           kubectl get services -o wide
 

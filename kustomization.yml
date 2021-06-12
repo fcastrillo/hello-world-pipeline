@@ -1,7 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  name: arbitrary
+
 commonLabels:
-  app: myWord
+  app: hello
+
 resources:
   - deployment.yml
-configMapGenerator:
-  - name: staging-helloworld-map
-

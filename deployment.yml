@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: staging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: staging
+  template:
+    metadata:
+      labels:
+        app: staging
+    spec:
+      containers:
+      - name: staging
+        image: {{ image }}
+        ports:
+          - containerPort: 3000
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: simple-node-entrypoint
+spec:
+  selector:
+    app: staging
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000

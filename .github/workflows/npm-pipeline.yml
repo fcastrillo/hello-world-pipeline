@@ -97,14 +97,13 @@ jobs:
       - name: Configure Docker
         run: gcloud auth configure-docker --quiet
 
-
-      name: Build
-      run: |-
-        docker build \
-        --tag "gcr.io/${{ secrets.PROJECT_ID }}/static-site:${{ github.sha  }}" \
-        --build-arg GITHUB_SHA="${{ github.sha }}" \
-        --build-arg GITHUB_REF="${{ github.ref  }}" \
-        .
+      - name: Build
+        run: |-
+          docker build \
+            --tag "gcr.io/${{ secrets.PROJECT_ID }}/static-site:${{ github.sha  }}" \
+            --build-arg GITHUB_SHA="${{ github.sha }}" \
+            --build-arg GITHUB_REF="${{ github.ref  }}" \
+            .
 
       - name: Publish
         run: |-

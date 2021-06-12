@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
       - name: staging
-        image: gcr.io/${{ secrets.PROJECT_ID }}/hello:TAG=gcr.io/${{ secrets.PROJECT_ID }}/hello:${{ github.sha }}
+        image: gcr.io/heroic-mechanic-316419/hello@sha256:3e1a41ac3affe408f56f4729e6c70daa50d66e5549fd62a09498cb2b2b284bb2

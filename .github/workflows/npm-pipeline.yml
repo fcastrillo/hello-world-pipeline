@@ -20,70 +20,10 @@ jobs:
           node-version: 12
       - run: npm ci
       - run: npm test
-      - run: echo "${{ secrets.HWORLD }}"
-
-#  setup-build-publish-deploy:
-#    name: Setup, Build, Publish, and Deploy
-#    runs-on: ubuntu-latest
-#    env:
-#      PROJECT_ID: ${{ secrets.PROJECT_ID }}
-#      GKE_CLUSTER: ${{ secrets.CLUSTER_NAME }}   # Add your cluster name here.
-#      GKE_ZONE: us-central1-a  # Add your cluster zone here.
-#      GKE_LOCATION: Council Bluffs
-#      DEPLOYMENT_NAME: staging-helloworld # Add your deployment name here.
-#      IMAGE: static-site
-#    steps:
-#
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#
-#      # Setup gcloud CLI
-#      - uses: google-github-actions/setup-gcloud@v0.2.0
-#        with:
-#          service_account_key: ${{ secrets.GKE_SA_KEY }}
-#          project_id: ${{ secrets.PROJECT_ID }}
-#
-#      # Configure docker to use the gcloud command-line tool as a credential helper
-#      - run: |-
-#          gcloud --quiet auth configure-docker
-#
-#      # Get the GKE credentials so we can deploy to the cluster
-#      - uses: google-github-actions/get-gke-credentials@v0.3.0
-#        with:
-#          cluster_name: hello-github
-#          location: us-central1-c
-#          credentials: ${{ secrets.GKE_SA_KEY }}
-#
-#      # Build the Docker image
-#      - name: Build
-#        run: |-
-#          docker build \
-#            --tag "gcr.io/${{ secrets.PROJECT_ID }}/static-site:${{ github.sha  }}" \
-#            --build-arg GITHUB_SHA="${{ github.sha }}" \
-#            --build-arg GITHUB_REF="${{ github.ref  }}" \
-#            .
-#
-#      - name: Publish
-#        run: |-
-#          docker push \
-#          "gcr.io/${{ secrets.PROJECT_ID }}/static-site:${{ github.sha }}"
-#
-#      # Set up kustomize
-#      - name: Set up Kustomize
-#        run: |-
-#          curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
-#          chmod u+x ./kustomize
-#
-#      # Deploy the Docker image to the GKE cluster
-#      - name: Deploy
-#        run: |-
-#          ./kustomize edit set image gcr.io/${{ secrets.PROJECT_ID }}/static-site:TAG=${{ github.sha }}
-#          ./kustomize build . | kubectl apply -f -
-#          kubectl rollout status deployment/staging
-#          kubectl get services -o wide
 
   build:
     runs-on: ubuntu-latest
+    needs: [test]
     steps:
       - name: Check Out Repo
         uses: actions/checkout@v2
@@ -109,7 +49,6 @@ jobs:
         run: |-
           docker push \
             "gcr.io/${{ secrets.PROJECT_ID }}/hello:${{ github.sha }}"
-
 
   deploy:
     runs-on: ubuntu-latest

@@ -69,8 +69,8 @@ jobs:
 
       - name: Create cluster
       #  run: gcloud run deploy ${{ secrets.PROJECT_ID }} --image $IMAGE_NAME --port $PORT --platform managed --region us-central1
-      #          gcloud container clusters create cluster-for-simple-app --zone=us-east1-c --project=${{ secrets.PROJECT_ID }}
+      #          gcloud container clusters create cluster-for-simple-app --zone=us-central1-a --project=${{ secrets.PROJECT_ID }}
         run: |-
-          gcloud container clusters get-credentials cluster-for-simple-app --zone=us-east1-c
+          gcloud container clusters get-credentials cluster-for-simple-app --zone=us-central1-a
           sed -i "s|{{ image }}|gcr.io/${{ secrets.PROJECT_ID }}/hello:${{ github.sha  }}|g" deployment.yml
           kubectl apply -f deployment.yml

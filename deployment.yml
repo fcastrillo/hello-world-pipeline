@@ -15,19 +15,3 @@ spec:
       containers:
       - name: staging
         image: {{ image }}
-        command: ["sleep", "infinity"]
-        ports:
-          - containerPort: 3000
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: simple-node-entrypoint
-spec:
-  selector:
-    app: staging
-  type: LoadBalancer
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 3000

@@ -3,6 +3,6 @@ var app = require('../index.js')
 describe('GET /', function () {
     it('displays "Hello World!"', function (done) {
         // The line below is the core test of our app.
-        request(app).get('/').expect('Hello World!', done);
+        request(app).get('/').expect('Pipeline numero 162 correcto', done);
     });
 });

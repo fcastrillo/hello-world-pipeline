@@ -15,4 +15,3 @@ spec:
       containers:
       - name: staging
         image: {{ image }}
-        command: ["sleep", "infinity"]
